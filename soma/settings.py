@@ -25,6 +25,8 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+    # 3rd Party
+    'crispy_forms',
     # local
     "courses.apps.CoursesConfig",
 ]
@@ -113,7 +115,6 @@ MEDIA_URL = "/media/"
 
 MEDIA_ROOT = BASE_DIR / "media"
 
-
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 
@@ -123,3 +124,6 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
 EMAIL_HOST = env("EMAIL_HOST")
 EMAIL_PORT = env("EMAIL_PORT")
+
+# CRISPY Forms
+CRISPY_TEMPLATE_PACK = "bootstrap4"
