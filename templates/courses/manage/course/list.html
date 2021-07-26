@@ -14,6 +14,9 @@
           <h3>{{ course.title }}</h3>
           <p>
             <a class="btn btn-secondary btn-sm" href="{% url "course_module_update" course.id %}">Edit modules</a>
+            {% if course.modules.count > 0 %}
+              <a class="btn btn-outline-info" href="{% url "module_content_list" course.modules.first.id %}"> Manage contents</a>
+            {% endif %}
             <a class="btn btn-info btn-sm" href="{% url "course_edit" course.id %}">Edit</a>
             <a class="btn btn-danger btn-sm " href="{% url "course_delete" course.id %}">Delete</a>
           </p>
