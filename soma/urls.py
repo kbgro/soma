@@ -13,6 +13,7 @@ urlpatterns = [
     path("course/", include("courses.urls")),
     path("students/", include("students.urls")),
     path("", CourseListView.as_view(), name="course_list"),
+    path("chat/", include("chat.urls", namespace="chat")),
 ]
 
 if settings.DEBUG:

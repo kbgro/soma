@@ -30,6 +30,7 @@ INSTALLED_APPS = [
     "embed_video",
     # local
     "courses.apps.CoursesConfig",
+    "chat",
 ]
 
 MIDDLEWARE = [
