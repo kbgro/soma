@@ -26,6 +26,7 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     # 3rd Party
+    "channels",
     "crispy_forms",
     "embed_video",
     # local
@@ -62,6 +63,8 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = "soma.wsgi.application"
+
+ASGI_APPLICATION = "soma.routing.application"
 
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
