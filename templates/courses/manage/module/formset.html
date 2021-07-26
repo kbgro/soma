@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+{% load crispy_forms_filters %}
+
+{% block title %}
+  Edit "{{ course.title }}"
+{% endblock %}
+
+{% block content %}
+  <div class="container">
+    <div class="row">
+      <div class="col-md-8 offset-2">
+        <h1 class="text-center">Edit "{{ course.title }}"</h1>
+        <div class="module mt-2">
+          <h2>Course modules</h2>
+          <form method="post">
+            {{ formset | crispy }}
+            {{ formset.management_form }}
+            {% csrf_token %}
+            <input class="btn btn-success" type="submit" value="Save modules">
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock %}
+
+{% block domready %}
+  let textAreas = $(".textarea.form-control")
+  for (const [key, value] of Object.entries(textAreas)) {
+  $(value).attr({'rows': 2})
+  }
+{% endblock domready %}

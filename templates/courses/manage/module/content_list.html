@@ -1,0 +1,94 @@
+{% extends "base.html" %}
+{% load course %}
+
+{% block title %}
+  Module {{ module.order|add:1 }}: {{ module.title }}
+{% endblock %}
+{% block content %}
+  <div class="container">
+    {% with course=module.course %}
+      <h1 class="card-header mt-1 text-center">Course "{{ course.title }}"</h1>
+      <div class="row">
+        <div class="col-md-8 pt-2">
+          <div class="module">
+            <h2>Module {{ module.order|add:1 }}: {{ module.title }}</h2>
+            <h3>Module contents:</h3>
+            <div id="module-contents">
+              {% for content in module.contents.all %}
+                <div data-id="{{ content.id }}">
+                  {% with item=content.item %}
+                    <div class="card">
+                      <div class="card-body">
+                        <p>{{ item }} ({{ item|model_name }})</p>
+                      </div>
+                      <div class="card-footer d-flex justify-content-between">
+                        <a class="btn btn-sm btn-info align-self-center"
+                           href="{% url "module_content_update" module.id item|model_name item.id %}">Edit</a>
+                        <form class="form-inline align-self-center"
+                              action="{% url "module_content_delete" content.id %}" method="post">
+                          <input class="btn btn-danger btn-sm" type="submit" value="Delete">
+                          {% csrf_token %}
+                        </form>
+                      </div>
+                    </div>
+                  {% endwith %}
+                </div>
+              {% empty %}
+                <div class="container">
+                  <div class="alert alert-danger">This module has no contents yet.</div>
+                </div>
+              {% endfor %}
+            </div>
+            <h3>Add new content:</h3>
+            <div class="row">
+              <div class="col-3">
+                <a class="w-100 mx-3 btn btn-sm btn-light text-success font-weight-bolder "
+                   href="{% url "module_content_create" module.id "text" %}">
+                  Text
+                </a>
+              </div>
+              <div class="col-3">
+                <a class="w-100 mx-3 btn btn-sm btn-light text-success font-weight-bolder"
+                   href="{% url "module_content_create" module.id "image" %}">
+                  Image
+                </a>
+              </div>
+              <div class="col-3">
+                <a class="w-100 mx-3 btn btn-sm btn-light text-success font-weight-bolder"
+                   href="{% url "module_content_create" module.id "video" %}">
+                  Video
+                </a>
+              </div>
+              <div class="col-3">
+                <a class="w-100 mx-3 btn btn-sm btn-light text-success font-weight-bolder"
+                   href="{% url "module_content_create" module.id "file" %}">
+                  File
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4 pt-2">
+          <div class="contents mt-5">
+            <h3>Modules</h3>
+            <ul id="modules" class="list-group">
+              {% for m in course.modules.all %}
+                <li data-id="{{ m.id }}" class="card list-group-item {% if m == module %} active {% endif %}">
+                  <a class="links-style" href="{% url "module_content_list" m.id %}">
+                    <span>Module <span class="order">{{ m.order|add:1 }}</span></span> : {{ m.title }}
+                  </a>
+                </li>
+              {% empty %}
+                <li>No modules yet.</li>
+              {% endfor %}
+            </ul>
+            <p><a class="btn btn-info btn-sm my-2" href="{% url "course_module_update" course.id %}">Edit modules</a>
+            </p>
+          </div>
+        </div>
+      </div>
+
+
+    {% endwith %}
+  </div>
+{% endblock %}
