@@ -66,6 +66,15 @@ WSGI_APPLICATION = "soma.wsgi.application"
 
 ASGI_APPLICATION = "soma.routing.application"
 
+CHANNEL_LAYERS = {
+    "default": {
+        "BACKEND": env("CHANNEL_LAYERS_BACKEND"),
+        "CONFIG": {
+            "hosts": [(env("REDIS_HOST"), env.int("REDIS_PORT"))],
+        },
+    },
+}
+
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
